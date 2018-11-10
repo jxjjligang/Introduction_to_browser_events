@@ -1,0 +1,16 @@
+<html>
+
+<head title="which handlers Run">
+
+</head>
+
+<body>
+    <button id="button">Click me</button>
+    <script>
+        button.addEventListener('click', () => alert('1'));
+        button.removeEventListener('click', () => alert('1'));
+        button.onclick = () => alert('2');
+    </script>
+</body>
+
+</html>
