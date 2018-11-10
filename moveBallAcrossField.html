@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        #field {
+            width: 200px;
+            height: 150px;
+            border: 10px solid black;
+            background-color: #00FF00;
+            overflow: hidden;
+        }
+
+        #ball {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body style="height:2000px">
+
+    Click on a field to move the ball there.
+    <br> The ball should never leave the field.
+
+
+    <div id="field">
+        <img src="https://en.js.cx/clipart/ball.svg" id="ball"> . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+        . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+        . . . . . . . . . . . . .
+        . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+        . . . . . . . . . . . . . . . . . . . . . . . .
+    </div>
+
+    <script>
+        field.onclick = function (event) {
+            let ballRect = ball.getBoundingClientRect(), fieldRect = field.getBoundingClientRect();
+            let halfBallWidth = ballRect.width / 2, halfBallHeight = ballRect.height / 2;
+            let fieldWidth = fieldRect.width, fieldHeight = fieldRect.height;
+
+            let leftValue = event.clientX - halfBallWidth;
+            leftValue = Math.max(fieldRect.left, leftValue);
+            leftValue = Math.min(leftValue, fieldWidth - halfBallWidth);
+
+            let topValue = event.clientY - halfBallHeight;
+            topValue = Math.max(fieldRect.top, topValue);
+            topValue = Math.min(topValue, fieldHeight - halfBallHeight);
+
+            ball.style.left = leftValue + window.pageXOffset + 'px';
+            ball.style.top = topValue + window.pageYOffset + 'px';
+        }
+    </script>
+
+</body>
+
+</html>
