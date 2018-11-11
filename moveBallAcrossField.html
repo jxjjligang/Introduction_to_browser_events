@@ -18,7 +18,7 @@
     </style>
 </head>
 
-<body style="height:2000px">
+<body style="height:2000px; margin:0px">
 
     Click on a field to move the ball there.
     <br> The ball should never leave the field.
@@ -34,20 +34,22 @@
 
     <script>
         field.onclick = function (event) {
-            let ballRect = ball.getBoundingClientRect(), fieldRect = field.getBoundingClientRect();
-            let halfBallWidth = ballRect.width / 2, halfBallHeight = ballRect.height / 2;
-            let fieldWidth = fieldRect.width, fieldHeight = fieldRect.height;
+            console.log(`x:${event.clientX}, y:${event.clientY}`);
 
-            let leftValue = event.clientX - halfBallWidth;
-            leftValue = Math.max(fieldRect.left, leftValue);
+            let ballRect = ball.getBoundingClientRect(); //, fieldRect = field.getBoundingClientRect();
+            let halfBallWidth = ballRect.width / 2, halfBallHeight = ballRect.height / 2;
+            let fieldWidth = field.clientWidth, fieldHeight = field.clientHeight;
+
+            let leftValue = event.clientX - halfBallWidth + window.pageXOffset;
+            leftValue = Math.max(field.clientLeft, leftValue);
             leftValue = Math.min(leftValue, fieldWidth - halfBallWidth);
 
-            let topValue = event.clientY - halfBallHeight;
-            topValue = Math.max(fieldRect.top, topValue);
-            topValue = Math.min(topValue, fieldHeight - halfBallHeight);
+            let topValue = event.clientY - halfBallHeight + window.pageYOffset;
+            topValue = Math.max(field.offsetTop , topValue);
+            topValue = Math.min(topValue, fieldHeight - halfBallHeight + field.offsetTop);
 
-            ball.style.left = leftValue + window.pageXOffset + 'px';
-            ball.style.top = topValue + window.pageYOffset + 'px';
+            ball.style.left = leftValue + 'px';
+            ball.style.top = topValue + 'px';
         }
     </script>
 

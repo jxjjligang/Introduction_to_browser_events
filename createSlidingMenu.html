@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body style="height:2000px;">
+    <div id="notField">
+        <table>
+            <tr>
+                <td id="tdImage"><img src="triangle.PNG" id='slideImage' /> </td>
+                <td onclick='slideMenu()'>Sweeties (Click me)!</td>
+            </tr>
+        </table>
+        <table id='tableSWeeties' style="display:none">
+            <tr>
+                <td>Cake</td>
+            </tr>
+            <tr>
+                <td>Donut</td>
+            </tr>
+            <tr>
+                <td>Honey</td>
+            </tr>
+    </div>
+
+    <script>
+        let slide = false;
+        function slideMenu() {
+            slide = !slide;
+            if (slide) {
+                tableSWeeties.style.display = '';
+                slideImage.src = 'triangleRotate.PNG'
+            }
+            else {
+                tableSWeeties.style.display = 'none';
+                slideImage.src = 'triangle.PNG'
+            }
+        }
+    </script>
+
+</body>
+
+</html>
