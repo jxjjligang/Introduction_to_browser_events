@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <div id="notField">
+        <table>
+            <tr>
+                <td><button id="leftButton" disabled="true" onclick="onLeftButtonClicked()">
+                        <=</button> </td> <td id='tdImage1'>
+                </td>
+                <td id='tdImage2'></td>
+                <td id='tdImage3'></td>
+                <td><button id="rightButton" onclick="onRightButtonClicked()">>=</button></td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        let leftToRight = true;
+        let leftIndex = 0;
+        let imagesCanShow = 3;
+
+        let allImages = ['Image 1', 'Image 2', 'Image 3', 'Image 4', 'Image 5', 'Image 6', 'Image 7'];
+
+        function onLeftButtonClicked() {
+            if (rightButton.disabled)
+                rightButton.disabled = false;
+
+            leftIndex = leftIndex - imagesCanShow;
+            if (leftIndex <= 0)
+                leftButton.disabled = true;
+
+            leftIndex = Math.max(0, leftIndex);
+            let toIndex = leftIndex + imagesCanShow;
+            tdImage3.textContent = allImages[toIndex - 1];
+            tdImage2.textContent = allImages[toIndex - 2];
+            tdImage1.textContent = allImages[toIndex - 3];
+        }
+
+        function onRightButtonClicked() {
+            if (leftButton.disabled)
+                leftButton.disabled = false;
+
+            let toIndex = leftIndex + imagesCanShow;
+            if (toIndex >= allImages.length)
+                rightButton.disabled = true;
+            toIndex = Math.min(allImages.length, toIndex);
+            tdImage3.textContent = allImages[toIndex - 1];
+            tdImage2.textContent = allImages[toIndex - 2];
+            tdImage1.textContent = allImages[toIndex - 3];
+            leftIndex = toIndex;
+        }
+    </script>
+
+</body>
+
+</html>
