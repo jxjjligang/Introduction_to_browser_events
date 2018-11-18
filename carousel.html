@@ -1,59 +1,61 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
 
 <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="carousel.css">
 </head>
 
 <body>
-    <div id="notField">
-        <table>
-            <tr>
-                <td><button id="leftButton" disabled="true" onclick="onLeftButtonClicked()">
-                        <=</button> </td> <td id='tdImage1'>
-                </td>
-                <td id='tdImage2'></td>
-                <td id='tdImage3'></td>
-                <td><button id="rightButton" onclick="onRightButtonClicked()">>=</button></td>
-            </tr>
-        </table>
+
+    <div id="carousel" class="carousel">
+        <button class="arrow prev">⇦</button>
+        <div class="gallery" id="divGallery">
+            <ul class="images" id="ulImages">
+                <li><img src="https://en.js.cx/carousel/1.png"></li>
+                <li><img src="https://en.js.cx/carousel/2.png"></li>
+                <li><img src="https://en.js.cx/carousel/3.png"></li>
+                <li><img src="https://en.js.cx/carousel/4.png"></li>
+                <li><img src="https://en.js.cx/carousel/5.png"></li>
+                <li><img src="https://en.js.cx/carousel/6.png"></li>
+                <li><img src="https://en.js.cx/carousel/7.png"></li>
+                <li><img src="https://en.js.cx/carousel/8.png"></li>
+                <li><img src="https://en.js.cx/carousel/9.png"></li>
+                <li><img src="https://en.js.cx/carousel/10.png"></li>
+            </ul>
+        </div>
+        <button class="arrow next">⇨</button>
     </div>
 
     <script>
-        let leftToRight = true;
-        let leftIndex = 0;
-        let imagesCanShow = 3;
+        let prevIndex = 0;
+        let totalImages = ulImages.getElementsByTagName('LI').length;
+        let buttons = document.querySelectorAll('.arrow');
+        let nxtBtnindex = buttons[0].classList.contains('next') ? 0 : 1;
+        let preBtnindex = buttons[0].classList.contains('prev') ? 0 : 1;
+        let prevBtn = buttons[preBtnindex], nextBtn = buttons[nxtBtnindex];
 
-        let allImages = ['Image 1', 'Image 2', 'Image 3', 'Image 4', 'Image 5', 'Image 6', 'Image 7'];
+        buttons.forEach(btn => btn.onclick = onBtnClick);
 
-        function onLeftButtonClicked() {
-            if (rightButton.disabled)
-                rightButton.disabled = false;
+        function onBtnClick() {
+            let isNext = this.classList.contains('next');
+            if (isNext && prevBtn.disabled)
+                prevBtn.disabled = false;
+            if (!isNext && nextBtn.disabled)
+                nextBtn.disabled = false;
 
-            leftIndex = leftIndex - imagesCanShow;
-            if (leftIndex <= 0)
-                leftButton.disabled = true;
-
-            leftIndex = Math.max(0, leftIndex);
-            let toIndex = leftIndex + imagesCanShow;
-            tdImage3.textContent = allImages[toIndex - 1];
-            tdImage2.textContent = allImages[toIndex - 2];
-            tdImage1.textContent = allImages[toIndex - 3];
+            let nextIndex = isNext ? (prevIndex + 3) : prevIndex - 3;
+            nextIndex = Math.max(0, nextIndex);
+            nextIndex = Math.min(totalImages - 3, nextIndex);
+            if (nextIndex === prevIndex) {
+                this.disabled = true;
+                return;
+            }
+            else {
+                ulImages.style.marginLeft = (0 - nextIndex * 130) + 'px';
+                prevIndex = nextIndex;
+            }
         }
 
-        function onRightButtonClicked() {
-            if (leftButton.disabled)
-                leftButton.disabled = false;
-
-            let toIndex = leftIndex + imagesCanShow;
-            if (toIndex >= allImages.length)
-                rightButton.disabled = true;
-            toIndex = Math.min(allImages.length, toIndex);
-            tdImage3.textContent = allImages[toIndex - 1];
-            tdImage2.textContent = allImages[toIndex - 2];
-            tdImage1.textContent = allImages[toIndex - 3];
-            leftIndex = toIndex;
-        }
     </script>
 
 </body>
