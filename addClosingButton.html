@@ -5,57 +5,43 @@
 </head>
 
 <body>
-    <div id="divHorse">
-        <strong>Horse</strong>
-        <br />
-        The horse is one of two extant subspecies of Equus ferus. It is an odd-toed ungulate mammal belonging to the
-        taxonomic family Equidae. The horse has evolved over the past 45 to 55 million years from a small multi-toed
-        creature, Eohippus, into the large, single-toed animal of today.
+    <div>
+        <div class="pane" id="div_horse">
+            <h3>Horse</h3>
+            <p>The horse is one of two extant subspecies of Equus ferus. It is an odd-toed ungulate mammal belonging to
+                the taxonomic family Equidae. The horse has evolved over the past 45 to 55 million years from a small
+                multi-toed creature, Eohippus, into the large, single-toed animal of today.</p>
+        </div>
+        <div class="pane" id="div_donkey">
+            <h3>Donkey</h3>
+            <p>The donkey or ass (Equus africanus asinus) is a domesticated member of the horse family, Equidae. The
+                wild ancestor of the donkey is the African wild ass, E. africanus. The donkey has been used as a
+                working animal for at least 5000 years.</p>
+        </div>
+        <div class="pane" id="div_cat">
+            <h3>Cat</h3>
+            <p>The domestic cat (Latin: Felis catus) is a small, typically furry, carnivorous mammal. They are often
+                called house cats when kept as indoor pets or simply cats when there is no need to distinguish them
+                from other felids and felines. Cats are often valued by humans for companionship and for their ability
+                to hunt vermin.
+            </p>
+        </div>
     </div>
-    <br />
-    <div id="divDonkey">
-        <strong>Donkey</strong>
-        <br />
-        The donkey or ass (Equus africanus asinus) is a domesticated member of the horse family, Equidae. The wild
-        ancestor of the donkey is the African wild ass, E. africanus. The donkey has been used as a working animal for
-        at least 5000 years.
-    </div>
-    <br />
-    <div id="divCat">
-        <strong>Cat</strong>
-        <br />
-        The domestic cat (Latin: Felis catus) is a small, typically furry, carnivorous mammal. They are often called
-        house cats when kept as indoor pets or simply cats when there is no need to distinguish them from other felids
-        and felines. Cats are often valued by humans for companionship and for their ability to hunt vermin.
-    </div>
+
     <script>
-        let buttonToDiv = new Map();
-        createCloseButtons();
-
-        function createCloseButtons() {
-            let divs = document.getElementsByTagName('div');
-            if (divs && divs.length > 0) {
-                Array.from(divs).forEach(div => {
+        let divs = document.getElementsByTagName('div');
+        if (divs && divs.length > 0) {
+            Array.from(divs).forEach(div => {
+                if (div.hasAttribute('iD')) {
                     let button = document.createElement('button');
-                    button.id = 'btn_' + div.id;
-                    buttonToDiv[button.id] = div;
-                    button.textContent = div.id;
-                    button.onclick = removeDiv;
-                    button.clientLeft = '200px';
+                    button.textContent = 'X';
                     div.prepend(button);
-                });
-
-
-            }
+                    button.className = 'remove-button';
+                    button.onclick = () => div.remove();
+                }
+            });
         }
 
-        function removeDiv() {
-            console.log(this);
-
-            if (this && buttonToDiv[this.id]) {
-                buttonToDiv[this.id].remove();
-            }
-        }
     </script>
 </body>
 
